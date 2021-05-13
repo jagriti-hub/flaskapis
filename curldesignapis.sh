@@ -28,17 +28,17 @@ curl http://localhost:8000/design/v1/table/service54263fea/dbe5300686/tbb172c64e
 curl -X DELETE http://localhost:8000/design/v1/table/service54263fea/dbe5300686/tbb172c64e
 
 
-curl -X POST -H "content-type: application/json" http://127.0.0.1:5000/datastore/v1/git/credentials -d '{"gitrepourl":"https://git-codecommit.us-east-1.amazonaws.com/v1/repos/coderepotest","gitusername":"jagriti+1-at-865927642493","gitpassword":"NQEL120vvOUOZjPJjMvxX5RC1+HO0/9CToUvyDNU7DM=","Region":"us-east-1"}'
+curl -X POST -H "content-type: application/json" http://127.0.0.1:5000/datastore/v1/git/credentials -d '{"gitrepourl":"","gitusername":"","gitpassword":"","Region":"us-east-1"}'
 curl -X POST -H "content-type: application/json" http://127.0.0.1:5000/datastore/v1/git/branches -d '{"gitrepourl":"https://git-codecommit.us-east-1.amazonaws.com/v1/repos/coderepotest"}'
 curl -X POST -H "content-type: application/json" http://127.0.0.1:5000/datastore/v1/git/designpush -d '{"gitrepourl":"https://git-codecommit.us-east-1.amazonaws.com/v1/repos/coderepotest","commitmessage":"design commit","tagname":"d1"}'
 curl -X POST -H "content-type: application/json" http://127.0.0.1:5000/datastore/v1/git/publish/s12345 -d '{"gitrepourl":"https://git-codecommit.us-east-1.amazonaws.com/v1/repos/coderepotest","commitmessage":"design commit","tagname":"d1"}'
 
 curl http://localhost:8000/datastore/v1/git
-curl -X POST -H "content-type: application/json" http://localhost:8000/datastore/v1/git/validate -d '{"gitrepourl":"https://git-codecommit.us-east-1.amazonaws.com/v1/repos/testgitrepo","gitusername":"jagriti-at-280111790906","gitpassword":"71eKRe5L5rnZaiyGYMeAL8ZYKN5duU/88ZwF5BfI2OY=","connectiontype":"https"}'
-curl -X POST -H "content-type: application/json" http://localhost:8000/datastore/v1/git/credentials -d '{"connectiontype":"https","gitrepourl":"https://git-codecommit.us-east-1.amazonaws.com/v1/repos/testgitrepo","gitusername":"jagriti-at-280111790906","gitpassword":"71eKRe5L5rnZaiyGYMeAL8ZYKN5duU/88ZwF5BfI2OY=","Region":"us-east-1","branches":["design","publish"]}'
+curl -X POST -H "content-type: application/json" http://localhost:8000/datastore/v1/git/validate -d '{"gitrepourl":"testgitrepo","gitusername":"","gitpassword":"","connectiontype":"https"}'
+curl -X POST -H "content-type: application/json" http://localhost:8000/datastore/v1/git/credentials -d '{"connectiontype":"https","gitrepourl":"https://git-codecommit.us-east-1.amazonaws.com/v1/repos/testgitrepo","gitusername":"","gitpassword":"=","Region":"us-east-1","branches":["design","publish"]}'
 curl -X POST -H "content-type: application/json" http://localhost:8000/datastore/v1/git/branches -d '{"gitrepourl":"https://git-codecommit.us-east-1.amazonaws.com/v1/repos/gitdatastore"}'
 curl -X POST -H "content-type: application/json" http://localhost:8000/datastore/v1/git/designpush -d '{"commitmessage":"design commit","tagname":"d1"}'
 curl -X POST -H "content-type: application/json" http://localhost:8000/datastore/v1/git/publish/s12345/testoption -d '{"gitrepourl":"https://git-codecommit.us-east-1.amazonaws.com/v1/repos/gittestrepo","commitmessage":"design commit","tagname":"d1"}'
 curl http://localhost:8000/datastore/v1/git/getbranches
-curl -X POST -H "content-type: application/json" http://localhost:8000/datastore/v1/git/templatepull -d '{"connectiontype": "https", "templategiturl": "", "templategitpassword":"NrQ+S5feQ0g0Wy0foNgomjmFu+CxjJppL7+7LAeJl8A=", "templategitusername": "jagriti-at-452647246054", "templategitbranch": "master"}'
+curl -X POST -H "content-type: application/json" http://localhost:8000/datastore/v1/git/templatepull -d '{"connectiontype": "https", "templategiturl": "", "templategitpassword":"NrQ+", "templategitusername": "", "templategitbranch": "master"}'
 curl -X POST -H "content-type: application/json" http://localhost:8000/datastore/v1/git/templatepull -d '{"connectiontype": "https", "templategiturl": "https://github.com/aravindarcheplay/test.git", "templategitpasswohttps://git-codecommit.us-east-1.amazonaws.com/v1/repos/ap-template-storerd":"sATYA@123", "templategitusername": "aravindarcheplay", "templategitbranch": "main"}'
