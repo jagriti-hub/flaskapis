@@ -1,0 +1,55 @@
+service:
+  - servicename: mockdeploy
+    versions:
+      - versionid: v1
+        resources:
+          - resourceid: live/db
+            methods:
+              - methodname: createdb
+                methodpath: NONE
+                methodtype: POST
+                functiontype: python
+                environment: 
+                  state_store: mockdeploy
+                volumes: NONE
+                python:
+                  deploymenttype: flask
+                  requirements:
+                    - boto3
+                    - gunicorn
+                    - flask
+                    - kubernetes
+                    
+              - methodname: getdb
+                methodpath: '{dbid}'
+                methodtype: GET
+                functiontype: python
+                environment: 
+                  state_store: mockdeploy
+                volumes: NONE
+                python:
+                  deploymenttype: flask
+                  requirements:
+                    - boto3
+                    - requests
+                    - gunicorn
+                    - flask
+                    - kubernetes
+              
+              - methodname: deletedb
+                methodpath: '{dbid}'
+                methodtype: DELETE
+                functiontype: python
+                environment: 
+                  state_store: mockdeploy
+                volumes: NONE
+                python:
+                  deploymenttype: flask
+                  requirements:
+                    - boto3
+                    - requests
+                    - gunicorn
+                    - flask
+                    - kubernetes
+
+          

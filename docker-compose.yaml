@@ -1,0 +1,68 @@
+services:
+  apigw:
+    depends_on:
+      - ap-designapi
+    build:
+      context: /home/ubuntu/ap-apias/apigw
+    image: ap-apigw
+    ports:
+      - 10001:80
+  ap-designapi:
+    environment:
+      archedatapath: /home/app/web/archeplay/data
+    volumes:
+      - /archeplay/data:/home/app/web/archeplay/data 
+    build:
+      context: /home/ubuntu/ap-apias/designapi
+    image: ap-designapi
+  ap-publishapi:
+    environment:
+      archedatapath: /home/app/web/archeplay/data
+    volumes:
+      - /archeplay/data:/home/app/web/archeplay/data 
+    build:
+      context: /home/ubuntu/ap-apias/publishapi
+    image: ap-publishapi
+  ap-datastore:
+    environment:
+      archedatapath: /home/app/web/archeplay/data
+    volumes:
+      - /archeplay/data:/home/app/web/archeplay/data 
+    build:
+      context: /home/ubuntu/ap-apias/datastore
+    image: ap-datastore
+  ap-templatestore:
+    environment:
+      archedatapath: /home/app/web/archeplay/data
+    volumes:
+      - /archeplay/data:/home/app/web/archeplay/data 
+    build:
+      context: /home/ubuntu/ap-apias/templatestore
+    image: ap-templatestore
+  ap-frontend:
+    build:
+      context: /home/ubuntu/ap-apias/frontend
+    image: ap-frontend
+  ap-liveapi:
+    environment:
+      archeplaydatapath: /archeplay/data
+      archedatapath: /home/app/web/archeplay/data
+      imagemetaurl: https://ap-api-public-data.s3.amazonaws.com/archeplay_image_meta_2_1.json
+      kubeconfigpath: /home/ubuntu/.kube/config
+    volumes:
+      - /home/ubuntu/.kube/config:/home/app/web/kubeconfig
+      - /archeplay/data:/home/app/web/archeplay/data
+    build:
+      context: /home/ubuntu/ap-apias/liveapi
+    image: ap-liveapi
+  # deployment:
+  #   environment:
+  #     state_store: apideployerbucket
+  #   build:
+  #     context: /home/ec2-user/environment/ap-apias/deployment
+  #   image: deployment
+  ap-auth:
+    build:
+      context: /home/ubuntu/ap-apias/auth
+    image: ap-auth
+version: '3.7'

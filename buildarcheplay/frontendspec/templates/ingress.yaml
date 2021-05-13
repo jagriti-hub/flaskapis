@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /v1/deploy
+  labels:
+    app: {{.Values.IngressName}}
+  name: {{.Values.IngressName}}
+  namespace: {{.Values.NameSpace}}
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: {{.Values.ServiceName}}
+          servicePort: {{.Values.ServicePort}}
+        path: /v1/deploy

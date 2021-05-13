@@ -1,0 +1,126 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apideployer
+  namespace: default
+spec:
+  backoffLimit: 0
+  minReadySeconds: 5
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      name: apideployer
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        name: apideployer
+    spec:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+      containers:
+        - image: public.ecr.aws/archeplay-dev/apiapigw:latest
+          imagePullPolicy: Always
+          name: apiapigw
+          ports:
+          - containerPort: 80
+          resources:
+            limits:
+              cpu: 100m
+              memory: 300Mi
+            requests:
+              cpu: 100m
+              memory: 300Mi
+        - image: public.ecr.aws/archeplay-dev/getapi:latest
+          imagePullPolicy: Always
+          name: getapi
+          env:
+          - name: awsregion
+            value: $awsregion
+          - name: bucket_name
+            value: $bucket_name
+          ports:
+          - containerPort: 5000
+          resources:
+            limits:
+              cpu: 100m
+              memory: 300Mi
+            requests:
+              cpu: 100m
+              memory: 300Mi
+        - image: public.ecr.aws/archeplay-dev/getapiresource:latest
+          imagePullPolicy: Always
+          name: getapiresource
+          env:
+          - name: awsregion
+            value: $awsregion
+          - name: bucket_name
+            value: $bucket_name
+          ports:
+          - containerPort: 5001
+          resources:
+            limits:
+              cpu: 100m
+              memory: 300Mi
+            requests:
+              cpu: 100m
+              memory: 300Mi
+        - image: public.ecr.aws/archeplay-dev/getapiresourcebyid:latest
+          imagePullPolicy: Always
+          name: getapiresourcebyid
+          env:
+          - name: awsregion
+            value: $awsregion
+          - name: bucket_name
+            value: $bucket_name
+          ports:
+          - containerPort: 5002
+          resources:
+            limits:
+              cpu: 100m
+              memory: 300Mi
+            requests:
+              cpu: 100m
+              memory: 300Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apideployer
+  namespace: default
+spec:
+  backoffLimit: 0
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    name: apideployer
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /v1/api
+  labels:
+    app: apideployer
+  name: apideployer
+  namespace: default
+spec:
+  backoffLimit: 0
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: apideployer
+          servicePort: 80
+        path: /v1/api

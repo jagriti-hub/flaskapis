@@ -1,0 +1,27 @@
+services:
+  apigw:
+    depends_on:
+      - createdb
+    build:
+      context: ./apigw
+    ports:
+    - 80:80
+  createdb:
+    build:
+      context: ./createdb
+    environment:
+      state_store: mockdeploy
+    image: createdb
+  # deletedb:
+  #   build:
+  #     context: ./mockdeploy/v1/live/db/deletedb
+  #   environment:
+  #     state_store: mockdeploy
+  #   image: deletedb
+  # getdb:
+  #   build:
+  #     context: ./mockdeploy/v1/live/db/getdb
+  #   environment:
+  #     state_store: mockdeploy
+  #   image: getdb
+version: '3.7'

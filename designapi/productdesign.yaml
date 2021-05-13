@@ -1,0 +1,67 @@
+service:
+  - servicename: product
+    versions:
+      - versionid: v1
+        resources:
+          - resourceid: product
+            methods:
+              - methodname: getproduct
+                methodpath: NONE
+                methodtype: GET
+                functiontype: python
+                environment: 
+                  awsregion: us-east-1
+                  bucket_name: apideployertest
+                volumes: NONE
+                python:
+                  deploymenttype: flask
+                  requirements:
+                    - boto3
+                    - gunicorn
+                    - flask
+                    
+              - methodname: getproductbyid
+                methodpath: '{productid}'
+                methodtype: GET
+                functiontype: python
+                environment: 
+                  awsregion: us-east-1
+                  bucket_name: apideployertest
+                volumes: NONE
+                python:
+                  deploymenttype: flask
+                  requirements:
+                    - boto3
+                    - gunicorn
+                    - flask
+              
+              - methodname: createproduct
+                methodpath: NONE
+                methodtype: GET
+                functiontype: python
+                environment: 
+                  awsregion: us-east-1
+                  bucket_name: apideployertest
+                volumes: NONE
+                python:
+                  deploymenttype: flask
+                  requirements:
+                    - boto3
+                    - gunicorn
+                    - flask
+              
+              - methodname: deleteproduct
+                methodpath: NONE
+                methodtype: GET
+                functiontype: python
+                environment: 
+                  awsregion: us-east-1
+                  bucket_name: apideployertest
+                volumes: NONE
+                python:
+                  deploymenttype: flask
+                  requirements:
+                    - boto3
+                    - gunicorn
+                    - flask
+              

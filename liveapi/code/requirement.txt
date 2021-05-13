@@ -1,0 +1,6 @@
+boto3
+flask 
+gunicorn
+kubernetes
+docker
+requests

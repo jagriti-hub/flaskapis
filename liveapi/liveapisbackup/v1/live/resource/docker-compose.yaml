@@ -1,0 +1,22 @@
+services:
+  # apigw:
+  #   depends_on:
+  #     - resourceapi
+  #   build:
+  #     context: /home/ubuntu/ap-apias/apigw
+  #   image: apigwlive
+  #   ports:
+  #   - 10002:80
+  resourceapi:
+    environment:
+      state_store: apideployerbucket
+      imagemetaurl: https://mockdeploy.s3.amazonaws.com/metadata.json
+      kubeconfigpath: /home/ubuntu/.kube/config
+    build:
+      context: /home/ubuntu/ap-apias/liveapi/mockdeploy/v1/live/resource
+    image: resourceapi
+    volumes:
+      - /home/ubuntu/.kube/config:/home/app/web/kubeconfig  
+    ports:
+    - 5002:5001
+version: '3.7'

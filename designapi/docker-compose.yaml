@@ -1,0 +1,27 @@
+services:
+  apigw:
+    depends_on:
+      - ap-designapi
+    build:
+      context: /home/ubuntu/ap-apias/apigwbackup
+    image: apigwlive
+    ports:
+    - 10001:80
+  auth:
+    build: 
+      context: /home/ubuntu/ap-apias/auth
+    image: auth
+    
+  ap-designapi:
+    environment:
+      archedatapath: /home/app/web/archeplay/data
+    build:
+      context: /home/ubuntu/ap-apias/designapi
+    image: ap-designapi
+    volumes:
+      - /archeplay/data:/home/app/web/archeplay/data
+  ap-frontend:
+    build:
+      context: /home/ubuntu/ap-apias/frontend
+    image: ap-frontend
+version: '3.7'

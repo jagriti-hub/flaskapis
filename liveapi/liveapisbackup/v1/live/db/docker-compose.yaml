@@ -1,0 +1,40 @@
+services:
+  db:
+    build:
+      context: /home/ubuntu/ap-apias/liveapi/mockdeploy/v1/live/db
+    environment:
+      state_store: livedeploy
+      imagemetaurl: https://mockdeploy.s3.amazonaws.com/metadata.json
+      kubeconfigpath: /home/ubuntu/.kube/config
+    image: db
+    volumes:
+      - /home/ubuntu/.kube/config:/home/app/web/kubeconfig  
+    ports:
+    - 5002:5000
+  resourceapi:
+    environment:
+      state_store: apideployerbucket
+      imagemetaurl: https://mockdeploy.s3.amazonaws.com/metadata.json
+      kubeconfigpath: /home/ubuntu/.kube/config
+    build:
+      context: /home/ubuntu/ap-apias/liveapi/mockdeploy/v1/live/resource
+    image: resourceapi
+    volumes:
+      - /home/ubuntu/.kube/config:/home/app/web/kubeconfig  
+    ports:
+    - 5002:5000
+  # deletedb:
+  #   build:
+  #     context: ./mockdeploy/v1/live/db/deletedb
+  #   environment:
+  #     state_store: mockdeploy
+  #   image: deletedb
+  # getdb:
+  #   build:
+  #     context: ./getdb
+  #   environment:
+  #     state_store: mockdeploy
+  #   image: getdb
+  #   volumes:
+  #     - /home/ubuntu/.kube/config:/home/app/web/kubeconfig
+version: '3.7'

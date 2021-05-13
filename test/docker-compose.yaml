@@ -1,0 +1,22 @@
+services:
+  apigw:
+    depends_on:
+      - designapi
+    build:
+      context: /home/ubuntu/ap-apias/apigw
+    image: apigwlive
+    ports:
+    - 10001:80
+  designapi:
+    environment:
+      state_store: apideployerbucket
+    build:
+      context: /home/ubuntu/ap-apias/test
+    image: designapi
+  frontend:
+    environment:
+      state_store: apideployerbucket
+    build:
+      context: /home/ubuntu/ap-apias/frontend
+    image: frontend
+version: '3.7'

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.DeployName}}
+  namespace: {{.Values.NameSpace}}
+spec:
+  minReadySeconds: {{.Values.MinReadySec}}
+  progressDeadlineSeconds: {{.Values.DeadlineSec}}
+  replicas: {{.Values.MinReplica}}
+  revisionHistoryLimit: {{.Values.RevHistoryLim}}
+  selector:
+    matchLabels:
+      name: {{.Values.LabelName}}
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        name: {{.Values.LabelName}}
+    spec:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+      containers: {{ toYaml .Values.Containers | nindent 6 }}

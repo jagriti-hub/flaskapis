@@ -1,0 +1,6 @@
+requests
+jsonify
+boto3
+python-jose
+flask
+gunicorn
